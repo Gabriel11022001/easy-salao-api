@@ -10,6 +10,7 @@ class Usuario {
     private $senha;
     private $status;
     private $tipoUsuario;
+    private $endereco;
 
     public function __construct()
     {
@@ -19,6 +20,7 @@ class Usuario {
         $this->senha = "";
         $this->status = "ativo";
         $this->tipoUsuario = "";
+        $this->endereco = null;
     }
 
     public function setUsuarioId($usuarioId) {
@@ -73,6 +75,15 @@ class Usuario {
     public function getTipoUsuario() {
 
         return $this->tipoUsuario;
+    }
+
+    public function setEndereco($endereco) {
+        $this->endereco = $endereco;
+    }
+
+    public function getEndereco() {
+
+        return $this->endereco;
     }
 
 }
