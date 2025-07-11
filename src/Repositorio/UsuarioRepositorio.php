@@ -89,7 +89,7 @@ class UsuarioRepositorio extends Repositorio {
         $usuario->setStatus($usuarioArr["status"]);
         $usuario->setTipoUsuario($usuarioArr["tipo_usuario"]);
 
-        if ($usuario->getTipoUsuario() == "salao") {
+        if ($usuario->getTipoUsuario() == "salão") {
             // buscar endereço do salão
             $usuario->setEndereco($this->buscarEndereco($usuario->getUsuarioId()));
         }
@@ -125,7 +125,30 @@ class UsuarioRepositorio extends Repositorio {
 
     // buscar usuário pelo e-mail
     public function buscarPeloEmail($email) {
-        
+        $stmt = $this->bancoDados->prepare("SELECT * FROM tb_usuarios WHERE email = :email");
+        $stmt->bindValue(":email", $email);
+        $stmt->execute();
+        $usuarioArr = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($usuarioArr)) {
+
+            return null;
+        }
+
+        $usuario = new Usuario();
+
+        $usuario->setUsuarioId($usuarioArr["usuario_id"]);
+        $usuario->setNomeCompleto($usuarioArr["nome_completo"]);
+        $usuario->setEmail($usuarioArr["email"]);
+        $usuario->setStatus($usuarioArr["status"]);
+        $usuario->setTipoUsuario($usuarioArr["tipo_usuario"]);
+
+        if ($usuario->getTipoUsuario() == "salão") {
+            // buscar endereço do salão
+            $usuario->setEndereco($this->buscarEndereco($usuario->getUsuarioId()));
+        }
+
+        return $usuario;
     }
 
 }
