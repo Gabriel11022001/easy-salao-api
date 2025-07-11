@@ -60,6 +60,36 @@ class UsuarioServico extends ServicoBase {
                 $erros["cep"] = "Informe o cep.";
             }
 
+            if (empty($dadosUsuario["logradouro"])) {
+                $erros["cep"] = "Informe o logradouro.";
+            }
+
+            if (empty($dadosUsuario["cidade"])) {
+                $erros["cidade"] = "Informe a cidade.";
+            }
+
+            if (empty($dadosUsuario["bairro"])) {
+                $erros["bairro"] = "Informe o bairro.";
+            }
+
+            if (empty($dadosUsuario["estado"])) {
+                $erros["estado"] = "Informe o estado.";
+            }
+
+            if (!empty($dadosUsuario["numero"])) {
+
+                if (is_int($dadosUsuario["numero"])) {
+
+                    if ($dadosUsuario["numero"] <= 0) {
+                        $erros["numero"] = "Número inválido.";
+                    }
+
+                } else if ($dadosUsuario["numero"] != "s/n") {
+                    $erros["numero"] = "Número inválido.";
+                }
+
+            }
+
         }
 
         return $erros;

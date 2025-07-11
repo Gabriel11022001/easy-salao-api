@@ -86,4 +86,24 @@ class Usuario {
         return $this->endereco;
     }
 
+    public function toArray() {
+
+        return [
+            "usuario_id" => $this->getUsuarioId(),
+            "nome_completo" => $this->getNomeCompleto(),
+            "email" => $this->getEmail(),
+            "tipo_usuario" => $this->getTipoUsuario(),
+            "endereco" => empty($this->getEndereco()) ? null : [
+                "endereco_id" => $this->getEndereco()->getEnderecoId(),
+                "cep" => $this->getEndereco()->getCep(),
+                "complemento" => $this->getEndereco()->getComplemento(),
+                "logradouro" => $this->getEndereco()->getLogradouro(),
+                "cidade" => $this->getEndereco()->getCidade(),
+                "bairro" => $this->getEndereco()->getBairro(),
+                "estado" => $this->getEndereco()->getEstado(),
+                "numero" => $this->getEndereco()->getNumero()
+            ]
+        ];
+    }
+
 }

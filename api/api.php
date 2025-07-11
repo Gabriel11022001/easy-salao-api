@@ -1,5 +1,6 @@
 <?php
 
+use Controllers\LoginController;
 use Controllers\Rota;
 use Controllers\UsuarioController;
 use Utils\Resposta;
@@ -11,6 +12,11 @@ require_once __DIR__ . "/../src/Utils/getParametro.php";
 try {   
     $rota = new Rota();
     $endpoint = $rota->getRotaAtual();
+
+    // efetuar login
+    if ($endpoint === "/usuarios/login") {
+        $rota->post("/usuarios/login", LoginController::class, "login");
+    }
 
     // cadastrar usuário
     if ($endpoint === "/usuarios/cadastrar") {
