@@ -17,15 +17,9 @@ class Resposta {
             "dados" => $dados
         ];
 
-        if (!$ok) {
-            // se tiver erro retornar o status-code 500
-            http_response_code(500);
-        } else {
-            // se não tiver erro, retornar o status-code 200
-            http_response_code(200);
-        }
+        http_response_code(200);
 
-        if (empty($resp["dados"])) {
+        if (empty($resp["dados"]) && !is_array($resp["dados"])) {
             $resp["dados"] = new stdClass();
         }
 

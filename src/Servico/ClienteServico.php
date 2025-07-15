@@ -119,7 +119,7 @@ class ClienteServico extends ServicoBase {
             $clientes = $this->clienteRepositorio->buscarClientesRepresentanteSalao($usuarioRepresentanteSalaoId);
 
             if (empty($clientes)) {
-                Resposta::response(true, "Não existem clientes cadastrados na base de dados.");
+                Resposta::response(true, "Não existem clientes cadastrados na base de dados.", array());
             }
 
             Resposta::response(true, "Clientes listados com sucesso.", $clientes);
