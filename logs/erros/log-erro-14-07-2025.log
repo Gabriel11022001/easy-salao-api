@@ -1,0 +1,4 @@
+[ ERRO ] - 14-07-2025 17:29:17 -> Erro ao tentar-se cadastrar o cliente: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type boolean: ""
+CONTEXT:  unnamed portal parameter $4 = ''
+[ ERRO ] - 14-07-2025 17:29:45 -> Erro ao tentar-se cadastrar o cliente: SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table "tb_clientes" violates foreign key constraint "tb_clientes_usuario_salao_id_fkey"
+DETAIL:  Key (usuario_salao_id)=(0) is not present in table "tb_usuarios".

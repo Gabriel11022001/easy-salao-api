@@ -1,0 +1,11 @@
+[ ERRO ] - 15-07-2025 10:21:50 -> Erro ao tentar-se cadastrar o cliente: SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table "tb_clientes" violates foreign key constraint "tb_clientes_usuario_id_fkey"
+DETAIL:  Key (usuario_id)=(0) is not present in table "tb_usuarios".
+
+
+[ ERRO ] - 15-07-2025 10:23:41 -> Erro ao tentar-se cadastrar o cliente: SQLSTATE[23503]: Foreign key violation: 7 ERROR:  insert or update on table "tb_clientes" violates foreign key constraint "tb_clientes_usuario_id_fkey"
+DETAIL:  Key (usuario_id)=(0) is not present in table "tb_usuarios".
+
+
+[ ERRO ] - 15-07-2025 10:25:35 -> Erro ao tentar-se cadastrar o cliente: Erro ao tentar-se cadastrar o cliente na base de dados.
+
+

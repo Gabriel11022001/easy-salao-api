@@ -2,6 +2,8 @@
 
 namespace Utils;
 
+use stdClass;
+
 class Resposta {
 
     public static function response(
@@ -21,6 +23,10 @@ class Resposta {
         } else {
             // se não tiver erro, retornar o status-code 200
             http_response_code(200);
+        }
+
+        if (empty($resp["dados"])) {
+            $resp["dados"] = new stdClass();
         }
 
         echo json_encode($resp);

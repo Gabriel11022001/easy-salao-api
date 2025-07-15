@@ -19,3 +19,14 @@ create table tb_enderecos(
     usuario_id integer not null,
     foreign key(usuario_id) references tb_usuarios(usuario_id)
 );
+
+create table tb_clientes(
+    cliente_id serial primary key,
+    nome_completo text not null,
+    email text not null,
+    telefone text, 
+    cliente_vip boolean not null,
+    usuario_salao_id integer,
+    usuario_id integer,
+    foreign key(usuario_salao_id) references tb_usuarios(usuario_id)
+);

@@ -151,4 +151,30 @@ class UsuarioRepositorio extends Repositorio {
         return $usuario;
     }
 
+    // buscar usuário pelo id e tipo de usuário
+    public function buscaPeloTipoUsuarioEId($usuarioId, $tipoUsuario) {
+        $stmt = $this->bancoDados->prepare("SELECT * FROM tb_usuarios WHERE usuario_id = :usuario_id
+        AND tipo_usuario = :tipo_usuario");
+
+        $stmt->bindValue(":usuario_id", $usuarioId);
+        $stmt->bindValue(":tipo_usuario", $tipoUsuario);
+        $stmt->execute();
+
+        $usuarioArray = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($usuarioArray)) {
+
+            return null;
+        }
+
+        $usuario = new Usuario();
+        $usuario->setUsuarioId($usuarioArray["usuario_id"]);
+        $usuario->setNomeCompleto($usuarioArray["nome_completo"]);
+        $usuario->setEmail($usuarioArray["email"]);
+        $usuario->setTipoUsuario($usuarioArray["tipo_usuario"]);
+        $usuario->setStatus($usuarioArray["status"]);
+
+        return $usuario;
+    }
+
 }

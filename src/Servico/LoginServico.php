@@ -5,6 +5,7 @@ namespace Servico;
 use Exception;
 use Repositorio\UsuarioRepositorio;
 use Utils\Funcoes;
+use Utils\Log;
 use Utils\Resposta;
 
 class LoginServico extends ServicoBase {
@@ -45,6 +46,8 @@ class LoginServico extends ServicoBase {
 
             Resposta::response(true, "Login efetuado com sucesso.", $usuario->toArray());
         } catch (Exception $e) {
+            Log::erro("Erro ao tentar-se efetuar o login: " . $e->getMessage());
+
             Resposta::response(false, "Erro ao tentar-se realizar login.");
         }
 

@@ -6,6 +6,7 @@ use Exception;
 use Models\Endereco;
 use Models\Usuario;
 use Repositorio\UsuarioRepositorio;
+use Utils\Log;
 use Utils\Resposta;
 
 class UsuarioServico extends ServicoBase {
@@ -132,7 +133,7 @@ class UsuarioServico extends ServicoBase {
 
             // validar se já existe outro usuário cadastrado com o mesmo e-mail na base de dados
             if (!empty($this->usuarioRepositorio->buscarPeloEmail($email))) {
-                Resposta::response(false, "Informe outro e-mail.");
+                Resposta::response(true, "Informe outro e-mail.");
             }
 
             $usuario = new Usuario();
@@ -182,6 +183,8 @@ class UsuarioServico extends ServicoBase {
                 ]
             ]);
         } catch (Exception $e) {
+            Log::erro("Erro ao tentar-se cadastrar o usuário: " . $e->getMessage());
+
             Resposta::response(false, "Erro ao tentar-se cadastrar o usuário.");
         }
 
