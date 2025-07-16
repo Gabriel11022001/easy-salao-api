@@ -87,4 +87,30 @@ class ClienteRepositorio extends Repositorio {
         return $clientes;
     }
 
+    // buscar cliente pelo id
+    public function buscarPeloId($clienteId) {
+        $stmt = $this->bancoDados->prepare("SELECT * FROM tb_clientes WHERE cliente_id = :cliente_id");
+
+        $stmt->bindValue(":cliente_id", $clienteId);
+        $stmt->execute();
+        $clienteArray = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($clienteArray)) {
+
+            return null;
+        }
+
+        $cliente = new Cliente();
+
+        $cliente->setClienteId($clienteArray["cliente_id"]);
+        $cliente->setNomeCompleto($clienteArray["nome_completo"]);
+        $cliente->setTelefone($clienteArray["telefone"]);
+        $cliente->setEmail($clienteArray["email"]);
+        $cliente->setClienteEhVip($clienteArray["cliente_vip"]);
+        $cliente->setUsuarioId($clienteArray["usuario_id"]);
+        $cliente->setUsuarioSalaoId($clienteArray["usuario_salao_id"]);
+
+        return $cliente;
+    }
+
 }

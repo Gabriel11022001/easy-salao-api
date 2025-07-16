@@ -131,4 +131,34 @@ class ClienteServico extends ServicoBase {
 
     }
 
+    // buscar cliente pelo id
+    public function buscarPeloId() {
+
+        try {
+
+            if (!isset($_GET["cliente_id"])) {
+                Resposta::response(false, "Informe o id do cliente na url.");
+            }
+
+            $clienteId = $_GET["cliente_id"];
+
+            if (empty($clienteId)) {
+                Resposta::response(false, "Informe o id do cliente.");
+            }
+
+            $cliente = $this->clienteRepositorio->buscarPeloId($clienteId);
+
+            if (empty($cliente)) {
+                Resposta::response(false, "Não foi encontrado um cliente com o id informado.");
+            }
+
+            Resposta::response(true, "Cliente encontrado com sucesso.", $cliente->toArray());
+        } catch (Exception $e) {
+            Log::erro("Erro ao tentar-se buscar o cliente pelo id: " . $e->getMessage());
+
+            Resposta::response(false, "Erro ao tentar-se consultar o cliente pelo id.");
+        }
+
+    }
+
 }

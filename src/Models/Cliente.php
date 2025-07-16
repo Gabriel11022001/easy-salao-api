@@ -12,7 +12,15 @@ class Cliente {
     private $usuarioSalaoId;
     private $usuarioId;
 
-    public function __construct()
+    public function __construct(
+        $clienteId = 0,
+        $nomeCompleto = "",
+        $telefone = "",
+        $email = "",
+        $clienteEhVip = false,
+        $usuarioId = 0,
+        $usuarioSalaoId = 0
+    )
     {
         $this->clienteId = 0;
         $this->nomeCompleto = "";

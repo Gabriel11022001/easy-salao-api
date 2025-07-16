@@ -34,6 +34,11 @@ try {
         $rota->get("/clientes/listar", ClienteController::class, "buscarTodos");
     }
 
+    // buscar cliente pelo id
+    if ($endpoint === "/clientes/consultar") {
+        $rota->get("/clientes/consultar", ClienteController::class, "buscarPeloId");
+    }
+
     Resposta::response(false, "404 - Rota inválida.");
 } catch (Exception $e) {
     echo "Erro: " . $e->getMessage() . "<br>";

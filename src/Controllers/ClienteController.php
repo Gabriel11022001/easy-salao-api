@@ -23,4 +23,9 @@ class ClienteController {
         $this->clienteServico->buscarTodos();
     }
 
+    // buscar cliente pelo id
+    public function buscarPeloId() {
+        $this->clienteServico->buscarPeloId();
+    }
+    
 }
