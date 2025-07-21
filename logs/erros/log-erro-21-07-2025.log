@@ -1,0 +1,23 @@
+[ ERRO ] - 21-07-2025 16:45:03 -> Erro ao tentar-se cadastrar o serviço do salão.
+
+
+[ ERRO ] - 21-07-2025 16:45:26 -> Erro ao tentar-se cadastrar o serviço do salão: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "id_usuario_salao" does not exist
+LINE 2:         AND id_usuario_salao = $2
+                    ^
+
+
+[ ERRO ] - 21-07-2025 16:46:16 -> Erro ao tentar-se cadastrar o serviço do salão: SQLSTATE[HY093]: Invalid parameter number: :usuario_salao_id
+
+
+[ ERRO ] - 21-07-2025 16:46:42 -> Erro ao tentar-se cadastrar o serviço do salão: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type integer: "Corte"
+CONTEXT:  unnamed portal parameter $2 = '...'
+
+
+[ ERRO ] - 21-07-2025 16:48:26 -> Erro ao tentar-se cadastrar o serviço do salão: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type integer: "Corte"
+CONTEXT:  unnamed portal parameter $2 = '...'
+
+
+[ ERRO ] - 21-07-2025 16:48:50 -> Erro ao tentar-se cadastrar o serviço do salão: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type integer: "Corte de cabelo"
+CONTEXT:  unnamed portal parameter $2 = '...'
+
+

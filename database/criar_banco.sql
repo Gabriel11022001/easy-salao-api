@@ -30,3 +30,12 @@ create table tb_clientes(
     usuario_id integer,
     foreign key(usuario_salao_id) references tb_usuarios(usuario_id)
 );
+
+create table tb_servicos_salao(
+    servico_salao_id serial primary key,
+    nome_servico text not null,
+    preco_servico decimal not null default 0,
+    salao_fornece_servico boolean not null,
+    usuario_salao_id integer not null,
+    foreign key(usuario_salao_id) references tb_usuarios(usuario_id)
+);

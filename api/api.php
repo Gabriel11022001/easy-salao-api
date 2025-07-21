@@ -3,6 +3,7 @@
 use Controllers\ClienteController;
 use Controllers\LoginController;
 use Controllers\Rota;
+use Controllers\ServicoSalaoController;
 use Controllers\UsuarioController;
 use Utils\Resposta;
 
@@ -37,6 +38,11 @@ try {
     // buscar cliente pelo id
     if ($endpoint === "/clientes/consultar") {
         $rota->get("/clientes/consultar", ClienteController::class, "buscarPeloId");
+    }
+
+    // cadastrar serviço do salão
+    if ($endpoint === "/servicos/salao/cadastrar") {
+        $rota->post("/servicos/salao/cadastrar", ServicoSalaoController::class, "cadastrar");
     }
 
     Resposta::response(false, "404 - Rota inválida.");
