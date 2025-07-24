@@ -53,7 +53,14 @@ class ServicoSalaoRepositorio extends Repositorio {
 
     // buscar os serviços fornecidos pelo salão
     public function buscarServicosSalao($idUsuarioSalao) {
+        $stmt = $this->bancoDados->prepare("SELECT * FROM tb_servicos_salao WHERE usuario_salao_id = :usuario_salao_id");
 
+        $stmt->bindValue(":usuario_salao_id", $idUsuarioSalao);
+        $stmt->execute();
+
+        $servicosArray = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        return $servicosArray;
     }
 
     // buscar o serviço pelo nome e o id_usuario_salao
@@ -80,6 +87,31 @@ class ServicoSalaoRepositorio extends Repositorio {
         $servico->setUsuarioSalaoId($servicoArray["usuario_salao_id"]);
 
         return $servico;
+    }
+
+    // buscar o serviço do salão pelo id
+    public function buscarPeloId($idServicoSalao) {
+        $stmt = $this->bancoDados->prepare("SELECT * FROM tb_servicos_salao WHERE servico_salao_id = :servico_salao_id");
+
+        $stmt->bindValue(":servico_salao_id", $idServicoSalao);
+        $stmt->execute();
+
+        $servicoSalaoArray = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($servicoSalaoArray)) {
+
+            return null;
+        }
+
+        $servicoSalao = new ServicoSalao();
+
+        $servicoSalao->setServicoSalaoId($servicoSalaoArray["servico_salao_id"]);
+        $servicoSalao->setNomeServico($servicoSalaoArray["nome_servico"]);
+        $servicoSalao->setUsuarioSalaoId($servicoSalaoArray["usuario_salao_id"]);
+        $servicoSalao->setSalaoForneceEsseServico($servicoSalaoArray["salao_fornece_servico"]);
+        $servicoSalao->setPrecoServico($servicoSalaoArray["preco_servico"]);
+
+        return $servicoSalao;
     }
 
 }

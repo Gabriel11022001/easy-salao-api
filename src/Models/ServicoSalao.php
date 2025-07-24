@@ -64,4 +64,15 @@ class ServicoSalao {
         return $this->salaoForneceEsseServico;
     }
 
+    public function toArray() {
+
+        return [
+            "servico_salao_id" => $this->getServicoSalaoId(),
+            "nome_servico" => $this->getNomeServico(),
+            "preco_servico" => $this->getPrecoServico(),
+            "usuario_salao_id" => $this->getUsuarioSalaoId(),
+            "salao_fornece_servico" => $this->getSalaoForneceEsseServico() 
+        ];
+    }
+
 }

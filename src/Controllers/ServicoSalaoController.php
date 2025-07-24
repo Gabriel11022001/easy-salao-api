@@ -18,4 +18,14 @@ class ServicoSalaoController {
         $this->servicoSalaoServico->cadastrar();
     }
 
+    // listar serviços fornecidos pelo salão de beleza
+    public function buscarServicosSalao() {
+        $this->servicoSalaoServico->buscarServicosSalao();
+    }
+
+    // buscar serviço do salão pelo id
+    public function buscarPeloId() {
+        $this->servicoSalaoServico->buscarPeloId();
+    }
+
 }

@@ -45,6 +45,16 @@ try {
         $rota->post("/servicos/salao/cadastrar", ServicoSalaoController::class, "cadastrar");
     }
 
+    // listar os serviços fornecidos pelo salão de beleza
+    if ($endpoint === "/servicos/salao/listar") {
+        $rota->get("/servicos/salao/listar", ServicoSalaoController::class, "buscarServicosSalao");
+    }
+
+    // buscar serviço do salão pelo id
+    if ($endpoint === "/servicos/salao/buscar-pelo-id") {
+        $rota->get("/servicos/salao/buscar-pelo-id", ServicoSalaoController::class, "buscarPeloId");
+    }
+
     Resposta::response(false, "404 - Rota inválida.");
 } catch (Exception $e) {
     echo "Erro: " . $e->getMessage() . "<br>";

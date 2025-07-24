@@ -74,4 +74,64 @@ class ServicoSalaoServico extends ServicoBase {
 
     }
 
+    // buscar os serviços fornecidos pelo salão
+    public function buscarServicosSalao() {
+
+        try {
+        
+            if (!isset($_GET["id_usuario_salao"])) {
+                Resposta::response(false, "Informe o id do usuário do salão na url.");
+            }
+
+            $usuarioSalaoId = $_GET["id_usuario_salao"];
+
+            if (empty($usuarioSalaoId)) {
+                Resposta::response(false, "Informe o id do usuário do salão na url.");
+            }
+
+            $servicos = $this->servicoSalaoRepositorio->buscarServicosSalao($usuarioSalaoId);
+
+            if (empty($servicos)) {
+                Resposta::response(true, "Não existem serviços cadastrados na base de dados.", []);
+            }
+
+            Resposta::response(true, "Serviços listados com sucesso.", $servicos);
+        } catch (Exception $e) {
+            Log::erro("Erro ao tentar-se buscar os serviços fornecidos pelo salão: " . $e->getMessage());
+
+            Resposta::response(false, "Erro ao tentar-se buscar os serviços fornecidos pelo salão.");
+        }
+
+    }
+
+    // buscar o serviço fornecido pelo salão pelo id
+    public function buscarPeloId() {
+
+        try {
+
+            if (!isset($_GET["servico_id"])) {
+                Resposta::response(false, "Informe o id do serviço na url.");
+            }
+
+            $id = $_GET["servico_id"];
+
+            if (empty($id)) {
+                Resposta::response(false, "Informe o id do serviço na url.");
+            }
+
+            $servico = $this->servicoSalaoRepositorio->buscarPeloId($id);
+
+            if (empty($servico)) {
+                Resposta::response(false, "Servicço não encontrado.");
+            }
+
+            Resposta::response(true, "Serviço encontrado com sucesso.", $servico->toArray());
+        } catch (Exception $e) {
+            Log::erro("Erro ao tentar-se buscar o serviço fornecido pelo salão pelo id: " . $e->getMessage());
+
+            Resposta::response(false, "Erro ao tentar-se buscar o serviço pelo id.");
+        }
+
+    }
+
 }
