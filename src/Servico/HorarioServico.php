@@ -93,4 +93,390 @@ class HorarioServico extends ServicoBase {
 
     }
 
+    // espelhar horários para os próximos meses do ano
+    public function espelharHorarios() {
+        $this->bancoDados->beginTransaction();
+
+        try {
+            $ano = getParametro("ano");
+            $mes = getParametro("mes");
+            $dia = getParametro("dia");
+            $horarios = getParametro("horarios");
+            $usuarioSalaoId = getParametro("usuario_salao_id");
+            $idBissexto = Metodos::validarAnoBissexto($ano);
+
+            // validar os campos
+            $errosCampos = Metodos::validarCamposEspelharHorario([
+                "ano" => $ano,
+                "mes" => $mes,
+                "dia" => $dia,
+                "usuario_salao_id" => $usuarioSalaoId,
+                "horarios" => $horarios
+            ]);
+
+            if (!empty($errosCampos))
+                Resposta::response(false, "Erros nos campos", $errosCampos);
+
+            // validar se existe um usuário cadastrado com id informado
+            if (empty($this->usuarioRepositorio->buscaPeloTipoUsuarioEId($usuarioSalaoId, "salão"))) {
+                Resposta::response(false, "Não existe um usuário cadastrado com o id informado.");
+            }
+
+            // mês de Janeiro
+            if ($mes === "Janeiro") {
+
+                // espelhar o horário para os demais dias do mês de Janeiro
+                if ($dia < 31) {
+
+                    for ($i = $dia + 1; $i <= 31; $i++) {
+
+                        foreach ($horarios as $horarioEspelhar) {
+                            $horario = new Horario();
+                            $horario->setMes("Janeiro");
+                            $horario->setAno($ano);
+                            $horario->setDia($i);
+                            $horario->setDe($horarioEspelhar->horario_de);
+                            $horario->setAte($horarioEspelhar->horario_ate);
+                            $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                            // validar para não ocorrer duplicação
+                            if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                                $ano,
+                                "Janeiro",
+                                $i,
+                                $usuarioSalaoId,
+                                $horarioEspelhar->horario_de,
+                                $horarioEspelhar->horario_ate
+                            ))) {
+                                $this->horarioRepositorio->cadastrar($horario);
+                            }
+
+                        }
+
+                    }
+
+                }
+
+                // espelhar para Fevereiro
+                for ($i = 1; $i <= ($idBissexto ? 29 : 28); $i++) {
+
+                    foreach ($horarios as $horarioEspelhar) {
+                        $horario = new Horario();
+                        $horario->setAno($ano);
+                        $horario->setMes("Fevereiro");
+                        $horario->setDia($i);
+                        $horario->setDe($horarioEspelhar->horario_de);
+                        $horario->setAte($horarioEspelhar->horario_ate);
+                        $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                        // validar para não ocorrer duplicação
+                        if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                            $ano,
+                            "Fevereiro",
+                            $i,
+                            $usuarioSalaoId,
+                            $horarioEspelhar->horario_de,
+                            $horarioEspelhar->horario_ate
+                        ))) {
+                            $this->horarioRepositorio->cadastrar($horario);
+                        }
+
+                    }
+
+                }
+
+                // espelhar para Março
+                for ($i = 1; $i <= 31; $i++) {
+
+                    foreach ($horarios as $horarioEspelhar) {
+                        $horario = new Horario();
+                        $horario->setAno($ano);
+                        $horario->setMes("Março");
+                        $horario->setDia($i);
+                        $horario->setDe($horarioEspelhar->horario_de);
+                        $horario->setAte($horarioEspelhar->horario_ate);
+                        $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                        // validar para não ocorrer duplicação
+                        if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                            $ano,
+                            "Março",
+                            $i,
+                            $usuarioSalaoId,
+                            $horarioEspelhar->horario_de,
+                            $horarioEspelhar->horario_ate
+                        ))) {
+                            $this->horarioRepositorio->cadastrar($horario);
+                        }
+
+                    }
+
+                }
+
+                // espelhar para Abril
+                for ($i = 1; $i <= 30; $i++) {
+
+                    foreach ($horarios as $horarioEspelhar) {
+                        $horario = new Horario();
+                        $horario->setAno($ano);
+                        $horario->setMes("Abril");
+                        $horario->setDia($i);
+                        $horario->setDe($horarioEspelhar->horario_de);
+                        $horario->setAte($horarioEspelhar->horario_ate);
+                        $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                        // validar para não ocorrer duplicação
+                        if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                            $ano,
+                            "Abril",
+                            $i,
+                            $usuarioSalaoId,
+                            $horarioEspelhar->horario_de,
+                            $horarioEspelhar->horario_ate
+                        ))) {
+                            $this->horarioRepositorio->cadastrar($horario);
+                        }
+
+                    }
+
+                }
+
+                // espelhar para Maio
+                for ($i = 1; $i <= 31; $i++) {
+
+                    foreach ($horarios as $horarioEspelhar) {
+                        $horario = new Horario();
+                        $horario->setAno($ano);
+                        $horario->setMes("Maio");
+                        $horario->setDia($i);
+                        $horario->setDe($horarioEspelhar->horario_de);
+                        $horario->setAte($horarioEspelhar->horario_ate);
+                        $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                        // validar para não ocorrer duplicação
+                        if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                            $ano,
+                            "Maio",
+                            $i,
+                            $usuarioSalaoId,
+                            $horarioEspelhar->horario_de,
+                            $horarioEspelhar->horario_ate
+                        ))) {
+                            $this->horarioRepositorio->cadastrar($horario);
+                        }
+
+                    }
+
+                }
+
+                // espelhar para Junho
+                for ($i = 1; $i <= 30; $i++) {
+
+                    foreach ($horarios as $horarioEspelhar) {
+                        $horario = new Horario();
+                        $horario->setAno($ano);
+                        $horario->setMes("Junho");
+                        $horario->setDia($i);
+                        $horario->setDe($horarioEspelhar->horario_de);
+                        $horario->setAte($horarioEspelhar->horario_ate);
+                        $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                        // validar para não ocorrer duplicação
+                        if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                            $ano,
+                            "Junho",
+                            $i,
+                            $usuarioSalaoId,
+                            $horarioEspelhar->horario_de,
+                            $horarioEspelhar->horario_ate
+                        ))) {
+                            $this->horarioRepositorio->cadastrar($horario);
+                        }
+
+                    }
+
+                }
+
+                // espelhar para Julho
+                for ($i = 1; $i <= 31; $i++) {
+
+                    foreach ($horarios as $horarioEspelhar) {
+                        $horario = new Horario();
+                        $horario->setAno($ano);
+                        $horario->setMes("Julho");
+                        $horario->setDia($i);
+                        $horario->setDe($horarioEspelhar->horario_de);
+                        $horario->setAte($horarioEspelhar->horario_ate);
+                        $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                        // validar para não ocorrer duplicação
+                        if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                            $ano,
+                            "Julho",
+                            $i,
+                            $usuarioSalaoId,
+                            $horarioEspelhar->horario_de,
+                            $horarioEspelhar->horario_ate
+                        ))) {
+                            $this->horarioRepositorio->cadastrar($horario);
+                        }
+
+                    }
+
+                }
+
+                // espelhar para Agosto
+                for ($i = 1; $i <= 31; $i++) {
+
+                    foreach ($horarios as $horarioEspelhar) {
+                        $horario = new Horario();
+                        $horario->setAno($ano);
+                        $horario->setMes("Agosto");
+                        $horario->setDia($i);
+                        $horario->setDe($horarioEspelhar->horario_de);
+                        $horario->setAte($horarioEspelhar->horario_ate);
+                        $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                        // validar para não ocorrer duplicação
+                        if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                            $ano,
+                            "Agosto",
+                            $i,
+                            $usuarioSalaoId,
+                            $horarioEspelhar->horario_de,
+                            $horarioEspelhar->horario_ate
+                        ))) {
+                            $this->horarioRepositorio->cadastrar($horario);
+                        }
+
+                    }
+
+                }
+
+                // espelhar para Setembro
+                for ($i = 1; $i <= 30; $i++) {
+
+                    foreach ($horarios as $horarioEspelhar) {
+                        $horario = new Horario();
+                        $horario->setAno($ano);
+                        $horario->setMes("Setembro");
+                        $horario->setDia($i);
+                        $horario->setDe($horarioEspelhar->horario_de);
+                        $horario->setAte($horarioEspelhar->horario_ate);
+                        $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                        // validar para não ocorrer duplicação
+                        if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                            $ano,
+                            "Setembro",
+                            $i,
+                            $usuarioSalaoId,
+                            $horarioEspelhar->horario_de,
+                            $horarioEspelhar->horario_ate
+                        ))) {
+                            $this->horarioRepositorio->cadastrar($horario);
+                        }
+
+                    }
+
+                }
+
+                // espelhar para Outubro
+                for ($i = 1; $i <= 31; $i++) {
+
+                    foreach ($horarios as $horarioEspelhar) {
+                        $horario = new Horario();
+                        $horario->setAno($ano);
+                        $horario->setMes("Outubro");
+                        $horario->setDia($i);
+                        $horario->setDe($horarioEspelhar->horario_de);
+                        $horario->setAte($horarioEspelhar->horario_ate);
+                        $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                        // validar para não ocorrer duplicação
+                        if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                            $ano,
+                            "Outubro",
+                            $i,
+                            $usuarioSalaoId,
+                            $horarioEspelhar->horario_de,
+                            $horarioEspelhar->horario_ate
+                        ))) {
+                            $this->horarioRepositorio->cadastrar($horario);
+                        }
+
+                    }
+
+                }
+
+                // espelhar para Novembro
+                for ($i = 1; $i <= 30; $i++) {
+
+                    foreach ($horarios as $horarioEspelhar) {
+                        $horario = new Horario();
+                        $horario->setAno($ano);
+                        $horario->setMes("Novembro");
+                        $horario->setDia($i);
+                        $horario->setDe($horarioEspelhar->horario_de);
+                        $horario->setAte($horarioEspelhar->horario_ate);
+                        $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                        // validar para não ocorrer duplicação
+                        if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                            $ano,
+                            "Novembro",
+                            $i,
+                            $usuarioSalaoId,
+                            $horarioEspelhar->horario_de,
+                            $horarioEspelhar->horario_ate
+                        ))) {
+                            $this->horarioRepositorio->cadastrar($horario);
+                        }
+
+                    }
+
+                }
+
+                // espelhar para Dezembro
+                for ($i = 1; $i <= 31; $i++) {
+
+                    foreach ($horarios as $horarioEspelhar) {
+                        $horario = new Horario();
+                        $horario->setAno($ano);
+                        $horario->setMes("Dezembro");
+                        $horario->setDia($i);
+                        $horario->setDe($horarioEspelhar->horario_de);
+                        $horario->setAte($horarioEspelhar->horario_ate);
+                        $horario->setUsuarioSalaoId($usuarioSalaoId);
+
+                        // validar para não ocorrer duplicação
+                        if (empty($this->horarioRepositorio->buscarHorariosPeloAnoMesDia(
+                            $ano,
+                            "Dezembro",
+                            $i,
+                            $usuarioSalaoId,
+                            $horarioEspelhar->horario_de,
+                            $horarioEspelhar->horario_ate
+                        ))) {
+                            $this->horarioRepositorio->cadastrar($horario);
+                        }
+
+                    }
+
+                }
+
+            }
+
+            $this->bancoDados->commit();
+
+            Resposta::response(true, "Horários espelhados com sucesso.");
+        } catch (Exception $e) {
+            $this->bancoDados->rollBack();
+            Log::erro("Erro ao tentar-se espelhar os horários: " . $e->getMessage());
+
+            Resposta::response(false, "Erro ao tentar-se espelhar os horários.");
+        }
+
+    }
+
 }

@@ -2,3 +2,7 @@
 DETAIL:  Failing row contains (1, 2025, Janeiro, 30, 12:00, 12:30, f, null).
 
 
+[ ERRO ] - 25-07-2025 16:26:51 -> Erro ao tentar-se espelhar os horários: SQLSTATE[22P02]: Invalid text representation: 7 ERROR:  invalid input syntax for type integer: "12:30"
+CONTEXT:  unnamed portal parameter $4 = '...'
+
+

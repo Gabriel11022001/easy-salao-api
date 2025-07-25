@@ -21,4 +21,9 @@ class HorarioController {
         $this->horarioServico->cadastrar();
     }
 
+    // espelhar os horários
+    public function espelharHorarios() {
+        $this->horarioServico->espelharHorarios();
+    }
+
 }

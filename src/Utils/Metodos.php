@@ -143,4 +143,48 @@ class Metodos {
         return false;
     }
 
+    // validar se um ano é bissexto
+    public static function validarAnoBissexto($anoValidar) {
+        $isBissexto = (date("L", strtotime($anoValidar))) ? true : false; 
+
+        return $isBissexto;
+    }
+
+    /**
+     * validar os campos para espelhar os horários para os próximos meses do ano
+     * @param array $campos
+     * @return array
+     */
+    public static function validarCamposEspelharHorario($campos) {
+        $erros = array();
+
+        if (empty($campos["ano"])) {
+            $erros["ano"] = "Informe o ano.";
+        } elseif ($campos["ano"] <= 0) {
+            $erros["ano"] = "Ano inválido.";
+        } elseif (self::validarAnoInformadoMenorAnoAtual($campos["ano"])) { 
+            $erros["ano"] = "Ano inválido.";
+        }
+
+        if (empty($campos["mes"])) {
+            $erros["mes"] = "Informe o mês.";
+        } elseif (!in_array($campos["mes"], MESES)) {
+            $erros["mes"] = "Mês inválido.";
+        } elseif (empty($campos["dia"])) {
+            $erros["dia"] = "Informe o dia.";
+        } elseif (!self::validarDiaMesInvalido($campos["mes"], $campos["dia"])) {
+            $erros["dia"] = "Dia inválido";
+        }
+
+        if (empty($campos["usuario_salao_id"])) {
+            $erros["usuario_salao_id"] = "Informe o id do usuário do salão.";
+        }
+
+        if (empty($campos["horarios"])) {
+            $erros["horarios"] = "Informe os horários.";
+        }
+
+        return $erros;
+    }
+
 }
