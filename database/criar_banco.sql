@@ -39,3 +39,15 @@ create table tb_servicos_salao(
     usuario_salao_id integer not null,
     foreign key(usuario_salao_id) references tb_usuarios(usuario_id)
 );
+
+create table tb_horarios(
+    horario_id serial primary key,
+    ano integer not null,
+    mes text not null,
+    dia integer not null,
+    horario_de text not null,
+    horario_ate text not null,
+    reservado boolean not null default false,
+    usuario_salao_id integer not null,
+    foreign key(usuario_salao_id) references tb_usuarios(usuario_id)
+);

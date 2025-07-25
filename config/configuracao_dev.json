@@ -1,0 +1,10 @@
+{
+    "ambiente": "dev",
+    "database": {
+        "host": "",
+        "db_name": "",
+        "user": "",
+        "password": "",
+        "driver": ""
+    }
+}

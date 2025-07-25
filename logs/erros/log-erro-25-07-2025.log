@@ -1,0 +1,4 @@
+[ ERRO ] - 25-07-2025 15:06:00 -> Erro ao tentar-se cadastrar o horário: SQLSTATE[23502]: Not null violation: 7 ERROR:  null value in column "usuario_salao_id" of relation "tb_horarios" violates not-null constraint
+DETAIL:  Failing row contains (1, 2025, Janeiro, 30, 12:00, 12:30, f, null).
+
+

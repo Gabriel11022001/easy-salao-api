@@ -1,6 +1,7 @@
 <?php
 
 use Controllers\ClienteController;
+use Controllers\HorarioController;
 use Controllers\LoginController;
 use Controllers\Rota;
 use Controllers\ServicoSalaoController;
@@ -53,6 +54,11 @@ try {
     // buscar serviço do salão pelo id
     if ($endpoint === "/servicos/salao/buscar-pelo-id") {
         $rota->get("/servicos/salao/buscar-pelo-id", ServicoSalaoController::class, "buscarPeloId");
+    }
+
+    // cadastrar horário
+    if ($endpoint === "/horarios/cadastrar") {
+        $rota->post("/horarios/cadastrar", HorarioController::class, "cadastrar");
     }
 
     Resposta::response(false, "404 - Rota inválida.");

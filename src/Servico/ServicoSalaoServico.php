@@ -122,7 +122,7 @@ class ServicoSalaoServico extends ServicoBase {
             $servico = $this->servicoSalaoRepositorio->buscarPeloId($id);
 
             if (empty($servico)) {
-                Resposta::response(false, "Servicço não encontrado.");
+                Resposta::response(false, "Serviço não encontrado.");
             }
 
             Resposta::response(true, "Serviço encontrado com sucesso.", $servico->toArray());
