@@ -3,6 +3,7 @@
 use Controllers\ClienteController;
 use Controllers\HorarioController;
 use Controllers\LoginController;
+use Controllers\ReservaController;
 use Controllers\Rota;
 use Controllers\ServicoSalaoController;
 use Controllers\UsuarioController;
@@ -69,6 +70,11 @@ try {
     // buscar os horários do salão
     if ($endpoint === "/horarios/listar") {
         $rota->get("/horarios/listar", HorarioController::class, "buscarHorariosSalao");
+    }
+
+    // realizar reserva do salão
+    if ($endpoint === "/reservas/realizar") {
+        $rota->post("/reservas/realizar", ReservaController::class, "realizarReserva");
     }
 
     Resposta::response(false, "404 - Rota inválida.");

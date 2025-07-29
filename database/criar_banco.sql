@@ -51,3 +51,22 @@ create table tb_horarios(
     usuario_salao_id integer not null,
     foreign key(usuario_salao_id) references tb_usuarios(usuario_id)
 );
+
+create table tb_reservas(
+    reserva_id serial primary key,
+    usuario_id integer not null,
+    usuario_salao_id integer not null,
+    horario_salao_id integer not null,
+    valor_total decimal not null,
+    foreign key(usuario_id) references tb_usuarios(usuario_id),
+    foreign key(usuario_salao_id) references tb_usuarios(usuario_id),
+    foreign key(horario_salao_id) references tb_horarios(horario_id)
+);
+
+create table tb_reserva_servico(
+    servico_id integer not null,
+    reserva_id integer not null,
+    preco_servico_momento_reserva decimal not null,
+    foreign key(servico_id) references tb_servicos_salao(servico_salao_id),
+    foreign key(reserva_id) references tb_reservas(reserva_id)
+);

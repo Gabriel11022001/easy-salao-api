@@ -1,3 +1,12 @@
 [ ERRO ] - 29-07-2025 14:01:08 -> Erro ao tentar-se listar os horários do salão: No objeto json não existe uma propriedade definida com o nome: reservado
 
 
+[ ERRO ] - 29-07-2025 16:16:48 -> Erro ao tentar-se realizar a reserva.
+
+
+[ ERRO ] - 29-07-2025 16:17:23 -> Erro ao tentar-se realizar a reserva: Não existe um serviço cadastrado com o id informado.
+
+
+[ ERRO ] - 29-07-2025 16:17:52 -> Erro ao tentar-se realizar a reserva: Não existe um serviço cadastrado com o id informado.
+
+

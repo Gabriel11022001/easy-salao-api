@@ -105,4 +105,27 @@ class HorarioRepositorio extends Repositorio {
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    // buscar horário pelo id
+    public function buscarPeloId($horarioId) {
+        $stmt = $this->bancoDados->prepare("SELECT * FROM tb_horarios WHERE horario_id = :horario_id");
+        $stmt->bindValue(":horario_id", $horarioId);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // alterar o status do horário
+    public function alterarStatusHorario($horarioId, $reservado) {
+        $stmt = $this->bancoDados->prepare("UPDATE tb_horarios SET reservado = :reservado WHERE horario_id = :horario_id");
+        $stmt->bindValue(":horario_id", $horarioId);
+        $stmt->bindValue(":reservado", $reservado, PDO::PARAM_BOOL);
+
+        if ($stmt->execute()) {
+
+            return;
+        }
+
+        throw new Exception("Erro ao tentar-se alterar o status do horário.");
+    }
+
 }
