@@ -60,4 +60,49 @@ class HorarioRepositorio extends Repositorio {
         return $horarioArray;
     }
 
+    // buscar os horários do salão
+    public function buscarHorariosSalao($usuarioSalaoId, $ano, $mes, $dia, $reservado) {
+        $query = "SELECT * FROM tb_horarios WHERE usuario_salao_id = :usuario_salao_id ";
+
+        if (!empty($ano)) {
+            $query .= "AND ano = :ano ";
+        }
+
+        if (!empty($mes)) {
+            $query .= "AND mes = :mes ";
+        }
+
+        if (!empty($dia)) {
+            $query .= "AND dia = :dia ";
+        }
+
+        if ($reservado === true) {
+            $query .= " AND reservado = true ";
+        } else if ($reservado === false) {
+            $query .= " AND reservado = false ";
+        }
+
+        $query .= " ORDER BY horario_id DESC";
+
+        $stmt = $this->bancoDados->prepare($query);
+
+        $stmt->bindValue(":usuario_salao_id", $usuarioSalaoId);
+
+        if (!empty($ano)) {
+            $stmt->bindValue(":ano", $ano);
+        }
+
+        if (!empty($mes)) {
+            $stmt->bindValue(":mes", $mes);
+        }
+
+        if (!empty($dia)) {
+            $stmt->bindValue(":dia", $dia);
+        }
+
+        $stmt->execute();
+
+        return $stmt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
 }

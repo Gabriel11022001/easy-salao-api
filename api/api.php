@@ -66,6 +66,11 @@ try {
         $rota->post("/horarios/espelhar", HorarioController::class, "espelharHorarios");
     }
 
+    // buscar os horários do salão
+    if ($endpoint === "/horarios/listar") {
+        $rota->get("/horarios/listar", HorarioController::class, "buscarHorariosSalao");
+    }
+
     Resposta::response(false, "404 - Rota inválida.");
 } catch (Exception $e) {
     echo "Erro: " . $e->getMessage() . "<br>";

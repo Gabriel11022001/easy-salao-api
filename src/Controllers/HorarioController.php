@@ -26,4 +26,9 @@ class HorarioController {
         $this->horarioServico->espelharHorarios();
     }
 
+    // buscar os horários do salão
+    public function buscarHorariosSalao() {
+        $this->horarioServico->buscarHorariosSalao();
+    }
+
 }

@@ -479,4 +479,40 @@ class HorarioServico extends ServicoBase {
 
     }
 
+    // buscar horários do salão
+    public function buscarHorariosSalao() {
+
+        try {   
+            $usuarioSalaoId = getParametro("usuario_salao_id");
+            $ano            = getParametro("ano");
+            $mes            = getParametro("mes");
+            $dia            = getParametro("dia");
+            $reservado      = getParametro("reservado");
+
+            // validar se existe um usuário de salão cadastrado com o id informado
+            if (empty($this->usuarioRepositorio->buscaPeloTipoUsuarioEId($usuarioSalaoId, "salão"))) {
+                Resposta::response(false, "Não existe um usuário de salão cadastrado com o id informado.");
+            }
+
+            $horarios = $this->horarioRepositorio->buscarHorariosSalao(
+                usuarioSalaoId: $usuarioSalaoId,
+                ano: $ano,
+                mes: $mes,
+                dia: $dia,
+                reservado: $reservado
+            );
+
+            if (empty($horarios)) {
+                Resposta::response(true, "Não existem horários cadastrados na base de dados.", array());
+            }
+
+            Resposta::response(true, "Horários encontrados com sucesso.", $horarios);
+        } catch (Exception $e) {
+            Log::erro("Erro ao tentar-se listar os horários do salão: " . $e->getMessage());
+
+            Resposta::response(false, "Erro ao tentar-se listar os horários do salão.");
+        }
+
+    }
+
 }
