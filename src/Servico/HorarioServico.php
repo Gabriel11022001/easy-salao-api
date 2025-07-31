@@ -515,4 +515,43 @@ class HorarioServico extends ServicoBase {
 
     }
 
+    // deletar horário do salão
+    public function deletar() {
+
+        try {
+            
+            if (!isset($_GET["horario_id"])) {
+                Resposta::response(false, "Informe o id do horário na url.");
+            }
+
+            $horarioId = $_GET["horario_id"];
+
+            if (empty($horarioId)) {
+                Resposta::response(false, "Informe o id do horário na url.");
+            }
+
+            // validar se existe um horário cadastrado com o id informado
+            if (empty($this->horarioRepositorio->buscarPeloId($horarioId))) {
+                Resposta::response(false, "Horário não encontrado na base de dados.");
+            }
+
+            /**
+             * validar se existe uma reserva relacionada
+             * ao horário em questão, se tiver, não deletar o horário
+             */
+            if (!empty($this->horarioRepositorio->buscarIdReservaRelacionadaHorario($horarioId))) {
+                Resposta::response(false, "Existe uma reserva relacionada ao horário em questão, primeiro, cancele a reserva para poder deletar esse horário.");
+            }
+
+            $this->horarioRepositorio->deletar($horarioId);
+
+            Resposta::response(true, "Horário deletado com sucesso.");
+        } catch (Exception $e) {
+            Log::erro("Erro ao tentar-se deletar o horário: " . $e->getMessage());
+
+            Resposta::response(false, "Erro ao tentar-se deletar o horário.");
+        }
+
+    }
+
 }

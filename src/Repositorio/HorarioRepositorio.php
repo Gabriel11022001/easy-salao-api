@@ -128,4 +128,25 @@ class HorarioRepositorio extends Repositorio {
         throw new Exception("Erro ao tentar-se alterar o status do horário.");
     }
 
+    // buscar reserva_id relacionada ao horário em questão
+    public function buscarIdReservaRelacionadaHorario($horarioId) {
+        $stmt = $this->bancoDados->prepare("SELECT reserva_id FROM tb_reservas WHERE horario_salao_id = :horario_id");
+        $stmt->bindValue(":horario_id", $horarioId);
+        $stmt->execute();
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
+    // deletar horário
+    public function deletar($horarioId) {
+        $stmt = $this->bancoDados->prepare("DELETE FROM tb_horarios WHERE horario_id = :horario_id");
+        $stmt->bindValue(":horario_id", $horarioId);
+
+        if (!$stmt->execute()) {
+
+            throw new Exception("Erro ao tentar-se deletar o horário.");
+        }
+
+    }
+
 }

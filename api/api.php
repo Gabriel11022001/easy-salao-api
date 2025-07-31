@@ -77,6 +77,11 @@ try {
         $rota->post("/reservas/realizar", ReservaController::class, "realizarReserva");
     }
 
+    // deletar horário
+    if ($endpoint === "/horarios/deletar") {
+        $rota->delete("/horarios/deletar", HorarioController::class, "deletar");
+    }
+
     Resposta::response(false, "404 - Rota inválida.");
 } catch (Exception $e) {
     echo "Erro: " . $e->getMessage() . "<br>";

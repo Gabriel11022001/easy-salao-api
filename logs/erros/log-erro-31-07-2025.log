@@ -1,0 +1,12 @@
+[ ERRO ] - 31-07-2025 13:32:27 -> Erro ao tentar-se deletar o horário: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "reserva_id" does not exist
+LINE 1: SELECT reserva_id FROM tb_horarios WHERE horario_id = $1
+               ^
+HINT:  Perhaps you meant to reference the column "tb_horarios.reservado".
+
+
+[ ERRO ] - 31-07-2025 13:33:39 -> Erro ao tentar-se deletar o horário: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "horario_id" does not exist
+LINE 1: SELECT reserva_id FROM tb_reservas WHERE horario_id = $1
+                                                 ^
+HINT:  Perhaps you meant to reference the column "tb_reservas.usuario_id".
+
+
