@@ -10,3 +10,27 @@ LINE 1: SELECT reserva_id FROM tb_reservas WHERE horario_id = $1
 HINT:  Perhaps you meant to reference the column "tb_reservas.usuario_id".
 
 
+[ ERRO ] - 31-07-2025 14:17:51 -> Erro ao tentar-se listar as reservas: SQLSTATE[42703]: Undefined column: 7 ERROR:  column r.horario_id does not exist
+LINE 14:         AND r.horario_id = h.horario_id
+                     ^
+HINT:  Perhaps you meant to reference the column "h.horario_id".
+
+
+[ ERRO ] - 31-07-2025 14:22:01 -> Erro ao tentar-se listar as reservas: SQLSTATE[42803]: Grouping error: 7 ERROR:  column "r.reserva_id" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 1: SELECT r.reserva_id, r.valor_total,
+               ^
+
+
+[ ERRO ] - 31-07-2025 14:22:20 -> Erro ao tentar-se listar as reservas: SQLSTATE[42803]: Grouping error: 7 ERROR:  column "h.ano" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 2:         h.ano, h.mes, h.dia, h.horario_de, h.horario_ate, h....
+                ^
+
+
+[ ERRO ] - 31-07-2025 14:22:43 -> Erro ao tentar-se listar as reservas: SQLSTATE[42803]: Grouping error: 7 ERROR:  column "s.servico_salao_id" must appear in the GROUP BY clause or be used in an aggregate function
+LINE 3:         s.servico_salao_id, s.nome_servico, 
+                ^
+
+
+[ ERRO ] - 31-07-2025 14:55:19 -> Erro ao tentar-se listar as reservas: SQLSTATE[08P01]: <<Unknown error>>: 7 ERROR:  bind message supplies 0 parameters, but prepared statement "pdo_stmt_00000001" requires 3
+
+

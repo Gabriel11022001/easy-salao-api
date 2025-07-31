@@ -21,4 +21,9 @@ class ReservaController {
         $this->reservaServico->realizarReserva();
     }
 
+    // listar/filtrar as reservas
+    public function listar() {
+        $this->reservaServico->listar();
+    }
+
 }

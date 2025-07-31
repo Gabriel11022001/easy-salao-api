@@ -82,6 +82,11 @@ try {
         $rota->delete("/horarios/deletar", HorarioController::class, "deletar");
     }
 
+    // listar/filtrar as reservas
+    if ($endpoint === "/reservas/listar") {
+        $rota->get("/reservas/listar", ReservaController::class, "listar");
+    }
+
     Resposta::response(false, "404 - Rota inválida.");
 } catch (Exception $e) {
     echo "Erro: " . $e->getMessage() . "<br>";

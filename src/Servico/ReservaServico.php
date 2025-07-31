@@ -3,6 +3,7 @@
 namespace Servico;
 
 use Exception;
+use Models\FiltroReservas;
 use Models\Reserva;
 use Repositorio\HorarioRepositorio;
 use Repositorio\ReservaRepositorio;
@@ -151,6 +152,34 @@ class ReservaServico extends ServicoBase {
         }
 
         return $servicos;
+    }
+
+    // listar as reservas
+    public function listar() {
+
+        try {
+            $filtroReservas = new FiltroReservas();
+
+            $errosFiltro = $filtroReservas->validarFiltro();
+
+            if (!empty($errosFiltro)) {
+                Resposta::response(false, "Erros no filtro.", $errosFiltro);
+            }
+
+            $filtroReservas->filtrar();
+            $reservas = $filtroReservas->getDados();
+
+            if (empty($reservas)) {
+                Resposta::response(true, "Nenhuma reserva encontrada.", []);
+            }
+
+            Resposta::response(true, "Reservas listadas com sucesso.", $reservas);
+        } catch (Exception $e) {
+            Log::erro("Erro ao tentar-se listar as reservas: " . $e->getMessage());
+
+            Resposta::response(false, "Erro ao tentar-se listar as reservas.");
+        }
+
     }
 
 }
