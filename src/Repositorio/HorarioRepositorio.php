@@ -76,9 +76,9 @@ class HorarioRepositorio extends Repositorio {
             $query .= "AND dia = :dia ";
         }
 
-        if ($reservado === true) {
+        if ($reservado === 1) {
             $query .= " AND reservado = true ";
-        } else if ($reservado === false) {
+        } else if ($reservado === 0) {
             $query .= " AND reservado = false ";
         }
 

@@ -3,8 +3,10 @@
 namespace Servico;
 
 use Exception;
+use LDAP\Result;
 use Models\Horario;
 use Repositorio\HorarioRepositorio;
+use Repositorio\ReservaRepositorio;
 use Repositorio\UsuarioRepositorio;
 use Utils\Log;
 use Utils\Metodos;
@@ -20,6 +22,10 @@ class HorarioServico extends ServicoBase {
      * @property UsuarioRepositorio
      */
     private $usuarioRepositorio;
+    /**
+     * @property ReservaRepositorio
+     */
+    private $reservaRepositorio;
 
     public function __construct()
     {
@@ -27,6 +33,7 @@ class HorarioServico extends ServicoBase {
 
         $this->horarioRepositorio = new HorarioRepositorio($this->bancoDados);
         $this->usuarioRepositorio = new UsuarioRepositorio($this->bancoDados);
+        $this->reservaRepositorio = new ReservaRepositorio($this->bancoDados);
     }
 
     // cadastrar horário do salão
@@ -550,6 +557,43 @@ class HorarioServico extends ServicoBase {
             Log::erro("Erro ao tentar-se deletar o horário: " . $e->getMessage());
 
             Resposta::response(false, "Erro ao tentar-se deletar o horário.");
+        }
+
+    }
+
+    // buscar o horário pelo id
+    public function buscarPeloId() {
+
+        try {
+
+            if (!isset($_GET["horario_id"])) {
+                Resposta::response(false, "Informe o horario_id na url.");
+            }
+
+            $id = $_GET["horario_id"];
+
+            if (empty($id)) {
+                Resposta::response(false, "Informe o horario_id na url.");
+            }
+
+            $horario = $this->horarioRepositorio->buscarPeloId($id);
+
+            if (empty($horario)) {
+                Resposta::response(false, "Horário não encontrado.");
+            }
+
+            // buscar a reserva relacionada ao horário
+            if (!$horario["reservado"]) {
+                $horario["reserva"] = null;
+            } else {
+                $horario["reserva"] = $this->reservaRepositorio->buscarReservaPeloIdHorario($id);
+            }
+
+            Resposta::response(true, "Horário encontrado com sucesso.", $horario);
+        } catch (Exception $e) {
+            Log::erro("Erro ao tentar-se buscar o horário pelo id: " . $e->getMessage());
+
+            Resposta::response(false, "Erro ao tentar-se buscar o horário pelo id.");
         }
 
     }

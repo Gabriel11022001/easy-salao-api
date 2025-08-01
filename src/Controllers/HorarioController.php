@@ -36,4 +36,9 @@ class HorarioController {
         $this->horarioServico->deletar();
     }
 
+    // buscar horário pelo id
+    public function buscarPeloId() {
+        $this->horarioServico->buscarPeloId();
+    }
+
 }

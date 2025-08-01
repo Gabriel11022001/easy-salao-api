@@ -69,7 +69,7 @@ try {
 
     // buscar os horários do salão
     if ($endpoint === "/horarios/listar") {
-        $rota->get("/horarios/listar", HorarioController::class, "buscarHorariosSalao");
+        $rota->post("/horarios/listar", HorarioController::class, "buscarHorariosSalao");
     }
 
     // realizar reserva do salão
@@ -85,6 +85,11 @@ try {
     // listar/filtrar as reservas
     if ($endpoint === "/reservas/listar") {
         $rota->get("/reservas/listar", ReservaController::class, "listar");
+    }
+
+    // buscar horário pelo id
+    if ($endpoint === "/horarios/buscar-pelo-id") {
+        $rota->get("/horarios/buscar-pelo-id", HorarioController::class, "buscarPeloId");
     }
 
     Resposta::response(false, "404 - Rota inválida.");
