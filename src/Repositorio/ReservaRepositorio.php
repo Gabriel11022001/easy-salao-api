@@ -117,7 +117,7 @@ class ReservaRepositorio extends Repositorio {
     // buscar reserva pelo id
     public function buscarPeloId($idReserva) {
         $stmt = $this->bancoDados->prepare("SELECT r.reserva_id, r.valor_total, h.ano, h.mes, h.dia, h.horario_de,
-        h.horario_ate, r.usuario_id, r.usuario_salao_id FROM tb_reservas AS r
+        h.horario_ate, r.usuario_id, r.usuario_salao_id, r.horario_salao_id AS horario_id FROM tb_reservas AS r
         JOIN tb_horarios AS h
         ON r.horario_salao_id = h.horario_id
         AND reserva_id = :reserva_id");
@@ -163,6 +163,28 @@ class ReservaRepositorio extends Repositorio {
         unset($reserva["usuario_salao_id"]);
 
         return $reserva;
+    }
+
+    // deletar reserva
+    public function deletar($idReserva) {
+        // deletar todos os relacionamentos reserva-serviço
+        $stmt = $this->bancoDados->prepare("DELETE FROM tb_reserva_servico WHERE reserva_id = :reserva_id");
+        $stmt->bindValue(":reserva_id", $idReserva);
+
+        if (!$stmt->execute()) {
+
+            throw new Exception("Erro ao tentar-se deletar os relacionamentos reserva-serviço na base de dados.");
+        }
+
+        // deletar a reserva
+        $stmt = $this->bancoDados->prepare("DELETE FROM tb_reservas WHERE reserva_id = :reserva_id");
+        $stmt->bindValue(":reserva_id", $idReserva);
+
+        if (!$stmt->execute()) {
+
+            throw new Exception("Erro ao tentar-se deletar a reserva.");
+        }
+
     }
 
 }

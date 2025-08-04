@@ -97,6 +97,11 @@ try {
         $rota->get("/reservas/buscar-pelo-id", ReservaController::class, "buscarPeloId");
     }
 
+    // cancelar reserva
+    if ($endpoint === "/reservas/cancelar") {
+        $rota->delete("/reservas/cancelar", ReservaController::class, "cancelar");
+    }
+
     Resposta::response(false, "404 - Rota inválida.");
 } catch (Exception $e) {
     echo "Erro: " . $e->getMessage() . "<br>";

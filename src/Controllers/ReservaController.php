@@ -31,4 +31,9 @@ class ReservaController {
         $this->reservaServico->buscarPeloId();
     }
 
+    // cancelar reserva
+    public function cancelar() {
+        $this->reservaServico->cancelar();
+    }
+
 }

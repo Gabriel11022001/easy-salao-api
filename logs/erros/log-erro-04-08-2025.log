@@ -11,3 +11,9 @@ LINE 1: ...ario_id_cliente, nome_completo AS cliente, email, tipo_pesso...
                                                              ^
 
 
+[ ERRO ] - 04-08-2025 14:47:23 -> Erro ao tentar-se cancelar a reserva: SQLSTATE[42703]: Undefined column: 7 ERROR:  column r.horario_id does not exist
+LINE 2: ... h.horario_ate, r.usuario_id, r.usuario_salao_id, r.horario_...
+                                                             ^
+HINT:  Perhaps you meant to reference the column "h.horario_id".
+
+

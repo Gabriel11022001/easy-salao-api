@@ -212,4 +212,43 @@ class ReservaServico extends ServicoBase {
 
     }
 
+    // cancelar reserva
+    public function cancelar() {
+        $this->bancoDados->beginTransaction();
+
+        try {
+        
+            if (!isset($_GET["reserva_id"])) {
+                Resposta::response(false, "Informe o id da reserva na url.");
+            }
+
+            $id = $_GET["reserva_id"];
+
+            if (empty($id)) {
+                Resposta::response(false, "Informe o id da reserva.");
+            }
+
+            $reserva = $this->reservaRepositorio->buscarPeloId($id);
+
+            if (empty($reserva)) {
+                Resposta::response(false, "Não existe uma reserva cadastrada com esse id.");
+            }
+
+            $this->reservaRepositorio->deletar($id);
+
+            // alterar o status do horário para disponivel
+            $this->horarioRepositorio->alterarStatusHorario($reserva["horario_id"], false);
+
+            $this->bancoDados->commit();
+
+            Resposta::response(true, "Reserva deletada com sucesso.");
+        } catch (Exception $e) {
+            $this->bancoDados->rollBack();
+            Log::erro("Erro ao tentar-se cancelar a reserva: " . $e->getMessage());
+
+            Resposta::response(false, "Erro ao tentar-se cancelar a reserva.");
+        }
+
+    }
+
 }
