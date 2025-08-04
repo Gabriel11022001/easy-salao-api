@@ -18,4 +18,9 @@ class UsuarioController {
         $this->usuarioServico->cadastrar();
     }
 
+    // filtrar os salões
+    public function filtrarSaloes() {
+        $this->usuarioServico->filtrarSaloes();
+    }
+
 }

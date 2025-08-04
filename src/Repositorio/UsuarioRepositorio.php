@@ -177,4 +177,48 @@ class UsuarioRepositorio extends Repositorio {
         return $usuario;
     }
 
+    // filtrar os salões por cidade/nome/e-mail
+    public function filtrarSaloes($filtros = []) {
+        $query = "SELECT u.*, e.cep, e.complemento,
+        e.cidade, e.logradouro, e.bairro, e.estado, e.numero
+        FROM tb_usuarios AS u 
+        INNER JOIN tb_enderecos AS e
+        ON u.usuario_id = e.usuario_id
+        AND u.tipo_usuario = 'salão' ";
+
+        if (isset($filtros["cidades"]) && !empty($filtros["cidades"])) {
+            $query .= " AND e.cidade IN(";
+
+            foreach ($filtros["cidades"] as $indice => $cidade) {
+
+                if ($indice == (count($filtros["cidades"]) - 1)) {
+                    $query .= "'" . $cidade . "'" . ") ";
+                } else {
+                    $query .= "'" . $cidade . "'" . ", ";
+                }
+
+            }
+
+        }
+
+        if (isset($filtros["nome_salao"]) && !empty($filtros["nome_salao"])) {
+            $query .= " AND u.nome_completo LIKE '%:nome_salao%'";
+        }
+
+        $stmt = $this->bancoDados->prepare($query);
+
+        if (isset($filtros["nome_salao"]) && !empty($filtros["nome_salao"])) {
+            $stmt->bindValue(":nome_salao", $filtros["nome_salao"]);
+        }
+
+        $stmt->execute();
+        $saloes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        if (empty($saloes)) {
+
+        }
+
+        return $saloes;
+    }
+
 }

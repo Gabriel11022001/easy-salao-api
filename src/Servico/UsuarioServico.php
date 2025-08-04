@@ -190,4 +190,43 @@ class UsuarioServico extends ServicoBase {
 
     }
 
+    // filtrar os salões de beleza
+    public function filtrarSaloes() {
+
+        try {
+            $nomeSalao = getParametro("nome_salao");
+            $cidades   = getParametro("cidades");
+
+            if (!empty($cidades)) {
+
+                foreach ($cidades as $cidade) {
+
+                    if (empty($cidade)) {
+                        Resposta::response(false, "Você informou o nome de uma cidade vazio.");
+                    }
+
+                }
+
+            }
+
+            $filtro = [
+                "nome_salao" => $nomeSalao,
+                "cidades"    => $cidades
+            ];
+
+            $saloes = $this->usuarioRepositorio->filtrarSaloes($filtro);
+
+            if (empty($saloes)) {
+                Resposta::response(true, "Não foram encontrados salões com os parâmetros informados.", array());
+            }
+
+            Resposta::response(true, "Salões filtrados com sucesso.", $saloes);
+        } catch (Exception $e) {
+            Log::erro("Erro ao tentar-se filtrar os salões: " . $e->getMessage());
+
+            Resposta::response(false, "Erro ao tentar-se filtrar os salões.");
+        }
+
+    }
+
 }

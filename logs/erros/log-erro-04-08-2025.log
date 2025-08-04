@@ -17,3 +17,28 @@ LINE 2: ... h.horario_ate, r.usuario_id, r.usuario_salao_id, r.horario_...
 HINT:  Perhaps you meant to reference the column "h.horario_id".
 
 
+[ ERRO ] - 04-08-2025 16:33:28 -> Erro ao tentar-se filtrar os salões: No objeto json não existe uma propriedade definida com o nome: nome_salao
+
+
+[ ERRO ] - 04-08-2025 16:33:36 -> Erro ao tentar-se filtrar os salões: SQLSTATE[42601]: Syntax error: 7 ERROR:  syntax error at or near ")"
+LINE 6:         AND u.tipo_usuario = 'salão'  AND u.cidades IN() 
+                                                               ^
+
+
+[ ERRO ] - 04-08-2025 16:36:21 -> Erro ao tentar-se filtrar os salões: SQLSTATE[42703]: Undefined column: 7 ERROR:  column u.cidades does not exist
+LINE 6:         AND u.tipo_usuario = 'salão'  AND u.cidades IN(Basto...
+                                                  ^
+HINT:  Perhaps you meant to reference the column "e.cidade".
+
+
+[ ERRO ] - 04-08-2025 16:37:23 -> Erro ao tentar-se filtrar os salões: SQLSTATE[42703]: Undefined column: 7 ERROR:  column u.cidade does not exist
+LINE 6:         AND u.tipo_usuario = 'salão'  AND u.cidade IN(Bastos...
+                                                  ^
+HINT:  Perhaps you meant to reference the column "e.cidade".
+
+
+[ ERRO ] - 04-08-2025 16:37:37 -> Erro ao tentar-se filtrar os salões: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "bastos" does not exist
+LINE 6: ...      AND u.tipo_usuario = 'salão'  AND e.cidade IN(Bastos) 
+                                                               ^
+
+

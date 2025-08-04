@@ -102,6 +102,11 @@ try {
         $rota->delete("/reservas/cancelar", ReservaController::class, "cancelar");
     }
 
+    // filtrar salões
+    if ($endpoint === "/usuarios/filtrar/saloes") {
+        $rota->post("/usuarios/filtrar/saloes", UsuarioController::class, "filtrarSaloes");
+    }
+
     Resposta::response(false, "404 - Rota inválida.");
 } catch (Exception $e) {
     echo "Erro: " . $e->getMessage() . "<br>";
