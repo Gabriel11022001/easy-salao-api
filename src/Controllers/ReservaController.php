@@ -26,4 +26,9 @@ class ReservaController {
         $this->reservaServico->listar();
     }
 
+    // buscar reserva pelo id
+    public function buscarPeloId() {
+        $this->reservaServico->buscarPeloId();
+    }
+
 }

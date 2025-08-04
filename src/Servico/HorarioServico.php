@@ -3,7 +3,6 @@
 namespace Servico;
 
 use Exception;
-use LDAP\Result;
 use Models\Horario;
 use Repositorio\HorarioRepositorio;
 use Repositorio\ReservaRepositorio;

@@ -1,0 +1,13 @@
+[ ERRO ] - 04-08-2025 12:01:50 -> Erro ao tentar-se buscar a reserva pelo id: SQLSTATE[HY093]: Invalid parameter number: :id_reserva
+
+
+[ ERRO ] - 04-08-2025 12:03:54 -> Erro ao tentar-se buscar a reserva pelo id: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "tipo_pessoa" does not exist
+LINE 1: ...cliente, nome_completo AS cliente, email, status, tipo_pesso...
+                                                             ^
+
+
+[ ERRO ] - 04-08-2025 12:04:28 -> Erro ao tentar-se buscar a reserva pelo id: SQLSTATE[42703]: Undefined column: 7 ERROR:  column "tipo_pessoa" does not exist
+LINE 1: ...ario_id_cliente, nome_completo AS cliente, email, tipo_pesso...
+                                                             ^
+
+

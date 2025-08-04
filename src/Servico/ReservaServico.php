@@ -182,4 +182,34 @@ class ReservaServico extends ServicoBase {
 
     }
 
+    // buscar uma reserva pelo id
+    public function buscarPeloId() {
+
+        try {
+
+            if (!isset($_GET["reserva_id"])) {
+                Resposta::response(false, "Informe o id da reserva na url.");
+            }
+
+            $id = $_GET["reserva_id"];
+
+            if (empty($id)) {
+                Resposta::response(false, "Informe o id da reserva.");
+            }
+
+            $reserva = $this->reservaRepositorio->buscarPeloId($id);
+
+            if (empty($reserva)) {
+                Resposta::response(false, "Reserva não encontrada.");
+            }
+
+            Resposta::response(true, "Reserva encontrada com sucesso.", $reserva);
+        } catch (Exception $e) {
+            Log::erro("Erro ao tentar-se buscar a reserva pelo id: " . $e->getMessage());
+
+            Resposta::response(false, "Erro ao tentar-se obter a reserva pelo id.");
+        }
+
+    }
+
 }

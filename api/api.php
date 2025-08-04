@@ -92,6 +92,11 @@ try {
         $rota->get("/horarios/buscar-pelo-id", HorarioController::class, "buscarPeloId");
     }
 
+    // buscar reserva pelo id
+    if ($endpoint === "/reservas/buscar-pelo-id") {
+        $rota->get("/reservas/buscar-pelo-id", ReservaController::class, "buscarPeloId");
+    }
+
     Resposta::response(false, "404 - Rota inválida.");
 } catch (Exception $e) {
     echo "Erro: " . $e->getMessage() . "<br>";

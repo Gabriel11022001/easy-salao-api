@@ -114,4 +114,55 @@ class ReservaRepositorio extends Repositorio {
         return $reserva;
     }
 
+    // buscar reserva pelo id
+    public function buscarPeloId($idReserva) {
+        $stmt = $this->bancoDados->prepare("SELECT r.reserva_id, r.valor_total, h.ano, h.mes, h.dia, h.horario_de,
+        h.horario_ate, r.usuario_id, r.usuario_salao_id FROM tb_reservas AS r
+        JOIN tb_horarios AS h
+        ON r.horario_salao_id = h.horario_id
+        AND reserva_id = :reserva_id");
+        $stmt->bindValue(":reserva_id", $idReserva);
+        $stmt->execute();
+
+        $reserva = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        if (empty($reserva)) {
+
+            return null;
+        }
+
+        // obter os dados do usuário/cliente relacionado a reserva
+        $stmt = $this->bancoDados->prepare("SELECT usuario_id AS usuario_id_cliente, 
+        nome_completo AS cliente, email, status, tipo_usuario AS perfil 
+        FROM tb_usuarios WHERE usuario_id = :usuario_id");
+        $stmt->bindValue(":usuario_id", $reserva["usuario_id"]);
+        $stmt->execute();
+        $reserva["cliente"] = $stmt->fetch(PDO::FETCH_ASSOC);
+
+        // obter os dados do usuário/salão
+        $stmt = $this->bancoDados->prepare("SELECT usuario_id AS usuario_id_salao,
+        nome_completo AS representante_salao, email, status, tipo_usuario AS perfil
+        FROM tb_usuarios WHERE usuario_id = :usuario_salao_id");
+        $stmt->bindValue(":usuario_salao_id", $reserva["usuario_salao_id"]);
+        $stmt->execute();
+        $salao = $stmt->fetch(PDO::FETCH_ASSOC);
+        $reserva["salao"] = $salao;
+
+        // obter os serviços relacionados a reserva
+        $stmt = $this->bancoDados->prepare("SELECT s.servico_salao_id AS servico_id, s.nome_servico,
+        trs.preco_servico_momento_reserva AS preco_servico
+        FROM tb_servicos_salao AS s
+        JOIN tb_reserva_servico AS trs
+        ON s.servico_salao_id = trs.servico_id
+        AND trs.reserva_id = :reserva_id");
+        $stmt->bindValue(":reserva_id", $reserva["reserva_id"]);
+        $stmt->execute();
+        $reserva["servicos"] = $stmt->fetchAll(PDO::FETCH_ASSOC);
+
+        unset($reserva["usuario_id"]);
+        unset($reserva["usuario_salao_id"]);
+
+        return $reserva;
+    }
+
 }
